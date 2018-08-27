@@ -1,2 +1,2 @@
-const puppeteer = require('puppeteer');
-const config = require('config/config');
+const  puppeteer = require('puppeteer');
+const  config = require('config/config');
