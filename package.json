@@ -1,0 +1,27 @@
+{
+  "name": "creeperforagileexercise",
+  "version": "1.0.0",
+  "description": "A creeper for Aglie Excrcise",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint .",
+    "fix": "eslint --fix ."
+  },
+  "pre-commit": [
+    "fix",
+    "lint"
+  ],
+  "keywords": [
+    "node",
+    "puppeteer"
+  ],
+  "author": "Jessica",
+  "license": "ISC",
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  },
+  "dependencies": {
+    "eslint": "^5.4.0"
+  }
+}
