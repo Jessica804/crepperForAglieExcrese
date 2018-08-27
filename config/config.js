@@ -1,4 +1,4 @@
 const path = require('path');
-module.exports = {  //crepperForAglieExcrese
+module.exports = {  
     fileDir :path.resolve(__dirname,'../.../exerciseFiles')
 };
