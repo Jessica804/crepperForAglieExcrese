@@ -5,7 +5,8 @@ let url = 'https://detail.tmall.com/item.htm?spm=a1z10.1-b-s.w19370147-188464830
 
 let main = async function(){
     let browser = await puppeteer.launch({
-        headless:false
+        headless:false,
+        devtools:true
     });
 
     let page = await browser.newPage();
@@ -41,12 +42,14 @@ let main = async function(){
     };
     try{
 
+        //获取模态窗口
+        let modalArray = await page.$$('#sufei-dialog-close');
         
-        await page.click('#sufei-dialog-close');
-        // page.on('dialog',async ()=>{
-        //     
-        //     console.log(chalk.green('关闭模态框'));
-        // });
+        //判断模态窗口是否存在，存在就关闭
+        if(modalArray.length){
+            await page.click('#sufei-dialog-close');
+        }
+
 
         await page.waitFor(15000);
 
@@ -82,26 +85,21 @@ let main = async function(){
                 return a.src;
             }); 
         });
-        //console.log(obj);
-
-
-
-        //await page.waitForSelector('.J_TabBar');
-
         
-   
         await page.click('a[href="#J_Reviews"] ');
-        
-
-
+        await page.waitFor(15000);
         obj.evaList = await page.evaluate(()=>{  
             console.log('进入评价分析抓取方法');
-            let evaList = [...document.querySelectorAll('td.tm-col-master>div.tm-rate-content>div.tm-rate-fulltxt')];
+            let evaList = [...document.querySelectorAll('div.tm-rate-content>div.tm-rate-fulltxt')];
+            console.log(evaList);
             return evaList.map((a)=>{
-                console.log(a);
-                return a.text;
-            }); 
+                return a.textContent;
+            });
+            
+           
         });
+
+        console.log(chalk.yellow(obj.evaList.length));
 
         console.log(obj);
     }catch(err){
